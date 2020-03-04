@@ -2,3 +2,5 @@
 start project
 
 create ui and MVC
+
+insert data
