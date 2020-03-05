@@ -30,5 +30,20 @@ def insert(title, target, owe, now):
     cur.execute(sql)
     conn.commit()
 
+def search(title,):
+    global conn, cur
+    sql = f"SELECT title FROM {table_name} WHERE title='{title}'"
+    cur.execute(sql)
+    rows = cur.fetchall()
+    return len(rows)
+
+def yield_all_record():
+    global conn, cur
+    sql = f"SELECT title, target, owe, now FROM {table_name}"
+    cur.execute(sql)
+    rows = cur.fetchall()
+    for row in rows:
+        yield (row[0], row[1], row[2], row[3])
+    
 if __name__ == '__main__':
     pass
