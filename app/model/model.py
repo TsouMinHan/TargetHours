@@ -22,6 +22,11 @@ class Model():
         with DBHandler.DBHandler():
             result = list(DBHandler.yield_all_record())
         return result
-        
+
+    def delete_data(self, title):
+        print(f'delete_data {title}')
+        with DBHandler.DBHandler():
+            DBHandler.delete_data(title)
+     
 if __name__ == '__main__':
     pass

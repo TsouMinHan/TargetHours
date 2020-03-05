@@ -13,14 +13,15 @@ class View(QMainWindow, Ui_MainWindow):
 
     def init(self,):
         self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.play_btn.setIcon(QIcon(r'doc\play.png'))
+        self.stop_btn.setIcon(QIcon(r'doc\stop.png'))
+        self.pause_btn.setIcon(QIcon(r'doc\pause.png'))
 
     def add_to_table(self, items):
         print('Add_to_table!')
         title, target, owe, now = items
         row = self.tableWidget.rowCount()
         self.tableWidget.setRowCount(row+1)
-        print(row, title, f'{target}({owe})', now)
-        print(self.tableWidget.rowCount())
         self.tableWidget.setItem(row, 0, QTableWidgetItem(title))
         self.tableWidget.setItem(row, 1, QTableWidgetItem(f'{target}({owe})'))
         self.tableWidget.setItem(row, 2, QTableWidgetItem(str(now)))

@@ -45,5 +45,13 @@ def yield_all_record():
     for row in rows:
         yield (row[0], row[1], row[2], row[3])
     
+def delete_data(title):
+    global conn, cur    
+    sql = f"DELETE FROM {table_name} WHERE title='{title}';"
+    print(sql)
+    cur.execute(sql)
+    conn.commit()
+
 if __name__ == '__main__':
-    pass
+    with DBHandler():
+        delete_data('qwe')

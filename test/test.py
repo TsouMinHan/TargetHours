@@ -1,5 +1,6 @@
-
+from app.model import Model
 
 if __name__ == '__main__':
-    int('a')
+    m = Model()
+    m.delete_data('qwe')
     
