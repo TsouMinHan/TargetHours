@@ -113,7 +113,7 @@ class Controller:
             self._model.insert_to_db(title, validated_time, 0, 0)
             try:
                 # set items
-                self.add_thread.items = (title, validated_time, 0, 0)
+                self.add_thread.items = (title, validated_time, 0, 0, validated_time)
                 self.add_thread.start()
             except Exception as e:
                 print(e)

@@ -21,6 +21,7 @@ class View(QMainWindow, Ui_MainWindow):
         self.time_label.setText(txt)
 
     def add_to_table(self, items):
+        print(items)
         title, target, owe, now, _ = items
         row = self.tableWidget.rowCount()
         self.tableWidget.setRowCount(row+1)

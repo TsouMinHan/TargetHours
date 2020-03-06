@@ -21,19 +21,6 @@ class TimerThread(QThread):
         self.wait()
 
     def save(self,):
-        # if self.owe!=0:
-        #     self.owe -= self.total_time
-        #     if self.owe<0:
-        #         self.target += self.owe
-        #         self.owe = 0
-
-        #         if self.target<0:
-        #             self.target = 0
-        # else:
-        #     self.target -= self.total_time
-        #     if self.target<0:
-        #             self.target = 0
-
         self.now += self.total_time
         self.update_signal.emit((self.title, self.target, self.owe, self.now))
 
