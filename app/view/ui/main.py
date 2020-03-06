@@ -88,6 +88,9 @@ class Ui_MainWindow(object):
         self.stop_btn.setGeometry(QtCore.QRect(165, 540, 60, 60))
         self.stop_btn.setText("")
         self.stop_btn.setObjectName("stop_btn")
+        self.reset_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.reset_btn.setGeometry(QtCore.QRect(10, 370, 100, 30))
+        self.reset_btn.setObjectName("reset_btn")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 400, 25))
@@ -118,6 +121,7 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "now"))
         self.delete_btn.setText(_translate("MainWindow", "刪除"))
+        self.reset_btn.setText(_translate("MainWindow", "重新計算"))
         self.menusetting.setTitle(_translate("MainWindow", "setting"))
         self.actiontest.setText(_translate("MainWindow", "test"))
 

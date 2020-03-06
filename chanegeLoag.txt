@@ -5,6 +5,7 @@ Using QThread for insert to table
 set combobox
 
 show error msg box
+add settlement btn
 
 2020.03.05
 start project

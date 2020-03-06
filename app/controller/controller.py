@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets
+from datetime import datetime
 import time
 import sys
 
@@ -30,10 +31,36 @@ class Controller:
                 self._view.title_lineEdit.text(),
                 self._view.time_lineEdit.text())
             )
+        self._view.reset_btn.clicked.connect(self.settlement)
         self._view.delete_btn.clicked.connect(self.delete_data)
         self._view.play_btn.clicked.connect(self.start_playing)
         self._view.pause_btn.clicked.connect(self.pause_playing)
         self._view.stop_btn.clicked.connect(self.stop_playing)
+
+    def settlement(self,):
+        items = self._model.get_all_record()
+        for item in items:
+            title = item[0]
+            target = item[1]
+            owe = item[2]
+            now = item[3]
+            record_target = item[4]
+
+            if owe!=0:
+                owe -= now
+                if owe<0:
+                    target += owe
+                    owe = 0
+                    if target<0:
+                        target = 0
+            else:
+                target -= now
+                if target<0:
+                    target = 0
+                    
+            owe += target
+            self._model.reset_record(title, owe, 0, record_target)
+            self.set_table_and_combox()
 
     def update_data(self, item: tuple):
         self._model.update_data(item[0], item[1], item[2], item[3])
@@ -79,13 +106,12 @@ class Controller:
             return False
 
     def insert_to_db(self, title: str, time:str):
-        validated_title = self.validate_title(title)
-        validated_time = self.validate_time(time)
+        validated_title = self.validate_title(title)*60
+        validated_time = self.validate_time(time)*60
 
         if validated_title and validated_time:
             self._model.insert_to_db(title, validated_time, 0, 0)
             try:
-                # self._view.add_to_table(title, validated_time, 0, 0)
                 # set items
                 self.add_thread.items = (title, validated_time, 0, 0)
                 self.add_thread.start()

@@ -26,7 +26,7 @@ class DBHandler():
 def insert(title, target, owe, now):
     global conn, cur
     sql = f"INSERT INTO {table_name} "\
-        f"(title, target, owe, now) VALUES ('{title}','{target}','{owe}', '{now}')"
+        f"(title, target, owe, now, record_target) VALUES ('{title}','{target}','{owe}', '{now}', '{target}')"
     cur.execute(sql)
     conn.commit()
 
@@ -39,11 +39,11 @@ def search(title,):
 
 def yield_all_record():
     global conn, cur
-    sql = f"SELECT title, target, owe, now FROM {table_name}"
+    sql = f"SELECT title, target, owe, now, record_target FROM {table_name}"
     cur.execute(sql)
     rows = cur.fetchall()
     for row in rows:
-        yield (row[0], row[1], row[2], row[3])
+        yield (row[0], row[1], row[2], row[3], row[4])
     
 def delete_data(title):
     global conn, cur    
@@ -66,6 +66,22 @@ def update_data(title, target, owe, now):
     cur.execute(sql)
     conn.commit()
 
+def get_date():
+    global conn, cur
+    sql = f"SELECT date FROM date_table"
+    cur.execute(sql)
+    rows = cur.fetchall()
+    for row in rows:
+        return row[0]
+
+def reset_record(title, owe, now, record_target):
+    global conn, cur
+    global conn, cur
+    sql = f"UPDATE {table_name} SET target='{record_target}', owe='{owe}', now='{now}' WHERE title='{title}'"
+    cur.execute(sql)
+    conn.commit()
+
+
 if __name__ == '__main__':
     with DBHandler():
-        delete_data('qwe')
+        insert_date()

@@ -1,4 +1,5 @@
 from . import DBHandler
+from datetime import datetime
 
 class Model():
     def __init__(self):
@@ -36,6 +37,15 @@ class Model():
     def update_data(self, title, target, owe, now):
         with DBHandler.DBHandler():
             DBHandler.update_data(title, target, owe, now)
+
+    def get_date(self,):
+        with DBHandler.DBHandler():
+            date = DBHandler.get_date()
+        return datetime.strptime(date, "%Y-%m-%d")
+
+    def reset_record(self, title, owe, now, record_target):
+        with DBHandler.DBHandler():
+            DBHandler.reset_record(title, owe, now, record_target)
 
 if __name__ == '__main__':
     pass
