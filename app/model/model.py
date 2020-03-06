@@ -28,5 +28,14 @@ class Model():
         with DBHandler.DBHandler():
             DBHandler.delete_data(title)
      
+    def get_data(self, column, value):
+        with DBHandler.DBHandler():
+            result = list(DBHandler.get_data(column, value))
+        return result
+
+    def update_data(self, title, target, owe, now):
+        with DBHandler.DBHandler():
+            DBHandler.update_data(title, target, owe, now)
+
 if __name__ == '__main__':
     pass

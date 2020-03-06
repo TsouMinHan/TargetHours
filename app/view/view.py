@@ -17,11 +17,18 @@ class View(QMainWindow, Ui_MainWindow):
         self.stop_btn.setIcon(QIcon(r'doc\stop.png'))
         self.pause_btn.setIcon(QIcon(r'doc\pause.png'))
 
+    def set_label(self, txt):
+        self.time_label.setText(txt)
+
     def add_to_table(self, items):
-        print('Add_to_table!')
         title, target, owe, now = items
         row = self.tableWidget.rowCount()
         self.tableWidget.setRowCount(row+1)
         self.tableWidget.setItem(row, 0, QTableWidgetItem(title))
         self.tableWidget.setItem(row, 1, QTableWidgetItem(f'{target}({owe})'))
         self.tableWidget.setItem(row, 2, QTableWidgetItem(str(now)))
+
+    def msgBox(self, msg):
+        msgBox = QMessageBox()
+        msgBox.setText(msg)
+        msgBox.exec_()

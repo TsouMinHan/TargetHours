@@ -1,9 +1,11 @@
 from PyQt5 import QtWidgets
+import time
 import sys
 
 from app.view import View
 from app.model import Model
 from .addThread import AddThread
+from .timerThread import TimerThread
 
 class Controller:
     def __init__(self):
@@ -12,6 +14,7 @@ class Controller:
         self._view = View()
 
         self.add_thread = AddThread()
+        self.timer_thread = TimerThread()
         self.init()
 
     def init(self,):
@@ -19,6 +22,9 @@ class Controller:
 
         self.add_thread.add_to_table_signal.connect(lambda: self._view.add_to_table(self.add_thread.items))
         
+        self.timer_thread.set_label_signal.connect(self._view.set_label)
+        self.timer_thread.update_signal.connect(self.update_data)
+
         self._view.add_btn.clicked.connect(
             lambda: self.insert_to_db(
                 self._view.title_lineEdit.text(),
@@ -26,9 +32,29 @@ class Controller:
             )
         self._view.delete_btn.clicked.connect(self.delete_data)
         self._view.play_btn.clicked.connect(self.start_playing)
+        self._view.pause_btn.clicked.connect(self.pause_playing)
+        self._view.stop_btn.clicked.connect(self.stop_playing)
 
-    def start_playing(sefl,):
-        pass
+    def update_data(self, item: tuple):
+        self._model.update_data(item[0], item[1], item[2], item[3])
+        self.set_table_and_combox()
+
+    def stop_playing(self,):
+        self.timer_thread.stop_flag = True
+
+    def pause_playing(self,):
+        self.timer_thread.pause_flag = not self.timer_thread.pause_flag
+
+    def start_playing(self,):
+        if self.timer_thread.isRunning():
+            self.pause_playing()
+        else:
+            self.timer_thread.title = self._view.comboBox.currentText()
+            item = self._model.get_data('title', self.timer_thread.title)
+            _, self.timer_thread.target, self.timer_thread.owe, self.timer_thread.now = item
+
+            self.timer_thread.start()
+
     def delete_data(self,):
         items = self._view.tableWidget.selectionModel().selectedRows()
         for item in items:
@@ -40,9 +66,7 @@ class Controller:
             self._view.tableWidget.removeRow(row)
 
     def validate_title(self, title: str):
-        if title.isdigit():
-            # TODO show msg box
-            print(f'{title} cannot only construct by number.')
+        if title.isdigit():            
             return False
 
         return not self._model.search_title(title)
@@ -68,14 +92,18 @@ class Controller:
             except Exception as e:
                 print(e)
         else:
-            # TODO show msg box.
-            print(f'{title} has repeat or time invalid failed.')
+            if title.isdigit():
+                self._view.msgBox(f'<{title}> cannot only construct by number.')
+            else:
+                self._view.msgBox(f'<{title}> has repeat or time invalid failed.')
 
     def set_table_and_combox(self,):
+        self._view.tableWidget.clear()
+        self._view.tableWidget.setRowCount(0)
+
         items = self._model.get_all_record()
         for item in items:
             self._view.add_to_table(item)
-            print(item[0])
             self._view.comboBox.addItem(item[0])
 
     def run(self):

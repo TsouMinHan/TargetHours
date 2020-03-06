@@ -1,6 +1,8 @@
-from app.model import Model
+import time
+import datetime
 
-if __name__ == '__main__':
-    m = Model()
-    m.delete_data('qwe')
-    
+now = time.time()
+print(now)
+
+a = datetime.datetime.strftime(now, "%H:%M:%S")
+print(a)

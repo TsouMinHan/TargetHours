@@ -52,6 +52,20 @@ def delete_data(title):
     cur.execute(sql)
     conn.commit()
 
+def get_data(column, value):
+    global conn, cur
+    sql = f"SELECT title, target, owe, now FROM {table_name} WHERE {column}='{value}'"
+    cur.execute(sql)
+    rows = cur.fetchall()
+    for row in rows:
+        return (row[0], row[1], row[2], row[3])
+
+def update_data(title, target, owe, now):
+    global conn, cur
+    sql = f"UPDATE {table_name} SET target='{target}', owe='{owe}', now='{now}' WHERE title='{title}'"
+    cur.execute(sql)
+    conn.commit()
+
 if __name__ == '__main__':
     with DBHandler():
         delete_data('qwe')
