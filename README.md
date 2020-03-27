@@ -8,4 +8,6 @@ Alough i was very excited when i developed, i never use this program.
 
 Just for practice.
 
-![](./img/1.JPG)
+* * *
+
+![](./doc/1.JPG)
