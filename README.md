@@ -6,7 +6,7 @@ TargetHours can record time when you are doing your target, show how much time y
 
 Alough i was very excited when i developed it, i never use this program.
 
-Therefore, this program final result is just for practice.
+Therefore, the end result of this program is just for practice.
 
 * * *
 
