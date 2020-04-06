@@ -8,6 +8,10 @@
 
 所以程式執行圖僅供參考。
 
+另外，這個程式還有許多地方可以進行修改
+1. 在表格內顯示的時間單位是秒數，但輸入的時間單位卻是分鐘。
+2. 計時器是使用`time`，應該要改成`QTimer`
+
 Similar to Pomodoros, you can set your weekily goal.
 
 TargetHours can record time when you are doing your target, show how much time you have to do.
