@@ -20,6 +20,10 @@ Alough i was very excited when i developed it, i never use this program.
 
 Therefore, the end result of this program is just for practice.
 
+In addition, there are many feactures can be improved
+1. The time unit displayed in the table is seconds, but the inputed time unit is minutes.
+2. The timer uses `time` instead of `QTimer`.
+
 * * *
 
 ![](./doc/1.JPG)
